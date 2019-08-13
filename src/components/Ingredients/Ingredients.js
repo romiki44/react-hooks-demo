@@ -24,26 +24,9 @@ const Ingredients=()=> {
   const {isLoading, error, data, sendRequest, reqExtra, reqIdentifier, clear}=useHttp();
 
   useEffect(()=>{
-    fetch('https://react-hooks-demo-6e6a5.firebaseio.com/ingredients.json')
-    .then(response=>response.json())
-    .then(responseData=>{
-      const loadedIngredients=[];
-      for(const key in responseData) {
-        loadedIngredients.push({
-          id: key,
-          title: responseData[key].title,
-          amount: responseData[key].amount
-        });
-      };
-      //setUserIngredients(loadedIngredients);
-      dispatch({type: 'SET', ingredients: loadedIngredients})
-    });
-  }, []);
-
-  useEffect(()=>{
     if(!isLoading && !error && reqIdentifier==='REMOVE_INGREDIENT') {
       dispatch({type: 'DELETE', id: reqExtra});
-    } else if(!isLoading && !error && data && reqIdentifier==='ADD_IDENTIFIER') {
+    } else if(!isLoading && !error && reqIdentifier==='ADD_INGREDIENT') {
       dispatch({
         type: 'ADD', 
         ingredient: {id: data.name, ...reqExtra}
